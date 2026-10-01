@@ -199,7 +199,12 @@
     a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 4000);
   };
-  $$("[data-ics]").forEach((b) => b.addEventListener("click", downloadIcs));
+  // Com agendaLink (evento do Google Agenda), os botões abrem o evento; sem ele, baixam um .ics
+  const addToCalendar = () => {
+    if (C.agendaLink) window.open(C.agendaLink, "_blank", "noopener");
+    else downloadIcs();
+  };
+  $$("[data-ics]").forEach((b) => b.addEventListener("click", addToCalendar));
 
   /* ---------- Formulário ---------- */
   const form = $("[data-form]");

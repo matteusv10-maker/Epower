@@ -28,6 +28,7 @@ Tudo fica no bloco `window.EPOWER`, no topo do `site/index.html`:
 | `localNome`, `localEndereco` | Local e endereço |
 | `mapsLink` | Link do Google Maps para o botão "Como chegar" (o botão só aparece quando preenchido) |
 | `mapsEmbed` | Google Maps → Compartilhar → Incorporar mapa → copie só o valor de `src="..."` |
+| `agendaLink` | Link do evento no Google Agenda usado nos botões "Adicionar à agenda" (vazio = baixa .ics) |
 | `formEndpoint` | Webhook do Make que recebe as confirmações (passo 3) |
 | `instagram` | Link do perfil do Ello Eterno |
 
