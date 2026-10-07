@@ -1,6 +1,6 @@
 # Conferência EPOWER 2026 · Landing Page
 
-LP da conferência de jovens do **Ello Eterno · AD Brás**. Tema **ASSUMIR ou SEGUIR** (Jonas 1:8).
+LP da conferência de jovens do **Ello Eterno · AD Brás**. Tema **ASSUMIR ou FUGIR** (Jonas 1:8).
 Site estático (HTML + CSS + JS, sem build). **Para publicar, suba só o conteúdo da pasta `site/`.**
 
 ```
@@ -20,7 +20,7 @@ Tudo fica no bloco `window.EPOWER`, no topo do `site/index.html`:
 
 | Campo | O que é |
 |---|---|
-| `temaA` / `temaB` | Palavras do tema (hoje ASSUMIR / SEGUIR) |
+| `temaA` / `temaB` | Palavras do tema (hoje ASSUMIR / FUGIR) |
 | `data` | `2026-11-07` (sábado). Alimenta a contagem e o "Adicionar à agenda" |
 | `hora` | Horário de início, ex.: `"19:00"`. Vazio = contagem até o dia e evento de dia inteiro na agenda |
 | `duracaoHoras` | Duração usada na agenda quando `hora` estiver preenchida |
@@ -32,24 +32,19 @@ Tudo fica no bloco `window.EPOWER`, no topo do `site/index.html`:
 | `formEndpoint` | Webhook do Make que recebe as confirmações (passo 3) |
 | `instagram` | Link do perfil do Ello Eterno |
 
-## 2. Colocar as fotos (preletores, cantores, direção, camisas)
+## 2. Imagens (banners, presenças e camisa)
 
-Os espaços estão marcados no HTML com comentários. Para cada um, troque o bloco
-`<div class="photo-slot">…</div>` por uma imagem:
+Para trocar qualquer imagem, substitua o arquivo em `site/assets/img/` **mantendo o mesmo nome**:
 
-```html
-<img src="assets/img/convidados/nome.jpg" alt="Nome do preletor">
-```
+| Arquivo | Onde aparece | Tamanho |
+|---|---|---|
+| `banner-mobile-1080.webp` e `banner-mobile-720.webp` | Topo da página no celular (arte vertical) | 1080 × 1920 e 720 × 1280 |
+| `banner-desktop-1920.webp` e `banner-desktop-1280.webp` | Topo da página no computador (arte horizontal) | 1920 × 1080 e 1280 × 720 |
+| `presencas/*.webp` | "Quem vai estar presente" | 3:4 (ex.: 600 × 800), rosto no terço de cima |
+| `camisa-epower-900.webp` e `camisa-epower-1348.webp` | Sorteio de camisas (fundo transparente) | 900 e 1348 de largura |
+| `og-epower.jpg` | Prévia do link no WhatsApp | 1200 × 630 |
 
-As fotos vão dentro de `site/assets/img/` (crie as pastas `convidados/` e `direcao/`).
-
-Tamanhos recomendados (JPG ou WebP, até ~200 KB cada):
-- **Hero (pregadores e cantores):** PNG recortado com fundo transparente, 1200 px de largura. Pode substituir os 3 arcos por uma única arte.
-- **Line-up:** 900 × 1200 px (3:4), rosto no terço superior (o topo é arredondado).
-- **Direção:** 600 × 600 px (quadrado, vira círculo).
-- **Camisas:** 1200 × 900 px.
-
-Quando todos os convidados estiverem confirmados, apague o bloco `guests__note` ("Os nomes são anunciados…").
+No topo do celular, o texto começa logo abaixo do logo da arte vertical (a 57% da altura). Se a arte nova mudar essa posição, ajuste `.hero__body { padding-top: 107% }` no `style.css`.
 
 ## 3. Formulário (Make)
 
@@ -114,13 +109,13 @@ npx http-server site -p 5173 -c-1
 
 ## Checklist antes de publicar
 
-- [ ] Tema confirmado (a arte do Figma diz **ASSUMIR ou FUGIR**; a LP está com **ASSUMIR ou SEGUIR**)
+- [x] Tema: **ASSUMIR ou FUGIR**
 - [x] Data (sábado, 7/11) e local (AD Brás · Av. Celso Garcia, 560) com mapa
 - [x] Horário: a partir das 17h (`hora: "17:00"`)
 - [x] `formEndpoint`: webhook do Make
 - [ ] Teste real: uma confirmação pelo site chegando no Make
 - [x] Instagram: @elloeterno
-- [ ] Fotos de preletores, cantores, direção e camisas
+- [x] Banners, fotos (preletor e direção) e camisa
 - [x] `og:url` e `og:image`: https://matteusv10-maker.github.io/Epower/
 - [ ] Resposta do FAQ sobre o sorteio revisada
 - [ ] Rodar `node tools/gerar-html-unico.mjs` de novo se for usar o arquivo único

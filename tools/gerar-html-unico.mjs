@@ -32,8 +32,15 @@ let html = readFileSync(join(root, "index.html"), "utf8")
 
 // Imagens <img>: a primeira ocorrência de cada arquivo leva os dados; as repetidas copiam dela (arquivo menor)
 // (comentários do HTML ficam intactos: eles só trazem exemplos de onde colocar fotos)
+// <source srcset>: embute só a maior versão (num arquivo único não há o que escolher)
+// <img srcset/sizes>: removidos, fica só o src embutido
+const largest = (set) => set.split(",").map((c) => c.trim().split(/\s+/)[0]).pop();
 const seen = new Map();
-const inlineImgs = (chunk) => chunk.replace(/<img\b([^>]*?)\ssrc="(assets\/img\/[^"]+)"([^>]*)>/g, (tag, before, src, after) => {
+const inlineImgs = (chunk) => chunk
+  .replace(/<source\b([^>]*?)\ssrcset="([^"]+)"([^>]*)>/g, (tag, before, set, after) =>
+    `<source${before} srcset="${dataUri(largest(set))}"${after.replace(/\ssizes="[^"]*"/, "")}>`)
+  .replace(/<img\b[^>]*>/g, (tag) => tag.replace(/\ssrcset="[^"]*"/, "").replace(/\ssizes="[^"]*"/, ""))
+  .replace(/<img\b([^>]*?)\ssrc="(assets\/img\/[^"]+)"([^>]*)>/g, (tag, before, src, after) => {
   if (!seen.has(src)) {
     const id = `img-src-${seen.size}`;
     seen.set(src, id);
@@ -46,7 +53,7 @@ html = html.split(/(<!--[\s\S]*?-->)/).map((part, i) => (i % 2 ? part : inlineIm
 const copyScript = `<script>document.querySelectorAll("img[data-copy-src]").forEach(function(i){var s=document.getElementById(i.getAttribute("data-copy-src"));if(s)i.src=s.src;});</script>`;
 html = html.replace('<script src="assets/js/main.js" defer></script>', () => `${copyScript}\n  <script>\n${js}\n</script>`);
 
-if (/(?:src|href)="assets\//.test(html.replace(/<!--[\s\S]*?-->/g, "").replace(/<meta[^>]*>/g, ""))) {
+if (/(?:src|srcset|href)="assets\//.test(html.replace(/<!--[\s\S]*?-->/g, "").replace(/<meta[^>]*>/g, ""))) {
   console.warn("Atenção: ainda há referências a arquivos em assets/ fora de comentários e metatags.");
 }
 

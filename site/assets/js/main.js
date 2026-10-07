@@ -46,6 +46,35 @@
     map.replaceChildren(iframe);
   }
 
+  /* ---------- Sem palavras viúvas ----------
+     Junta as duas últimas palavras de cada parágrafo com espaço inquebrável,
+     para nenhuma linha terminar com uma palavra sozinha. */
+  const noWidow = (el) => {
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    let wordSeen = false;
+    for (let i = nodes.length - 1; i >= 0; i--) {
+      const node = nodes[i];
+      const text = node.nodeValue;
+      const body = wordSeen ? text : text.replace(/\s+$/, "");
+      const idx = body.search(/\s(?=\S*$)/); // último espaço antes da última palavra
+      if (!wordSeen && body.length === 0) continue;
+      if (idx >= 0) {
+        node.nodeValue = body.slice(0, idx) + "\u00A0" + text.slice(idx + 1);
+        return;
+      }
+      wordSeen = true; // este nó só tem a última palavra: o espaço está no nó anterior
+    }
+  };
+  $$("p, .questions li, .checks li, summary, figcaption, h2, .form-success h3").forEach((el) => {
+    if (el.closest("[data-countdown], .theme-title, .sticky-cta, .facts, .site-nav")) return;
+    const words = el.textContent.trim().split(/\s+/);
+    // títulos grandes: só junta quando sobra espaço (3+ palavras e final curto), para não estourar a largura
+    if (/^H\d$/.test(el.tagName) && (words.length < 3 || words.slice(-2).join(" ").length > 14)) return;
+    noWidow(el);
+  });
+
   /* ---------- Cabeçalho e barra fixa ---------- */
   const header = $("[data-header]");
   const sticky = $("[data-sticky-cta]");
@@ -127,7 +156,7 @@
   const cdGrid = $("[data-countdown]");
   const cdDone = $("[data-countdown-done]");
   const cdTitle = $("#countdown-title");
-  const cells = { d: $('[data-cd="d"]'), h: $('[data-cd="h"]'), m: $('[data-cd="m"]') };
+  const cells = { d: $('[data-cd="d"]'), h: $('[data-cd="h"]'), m: $('[data-cd="m"]'), s: $('[data-cd="s"]') };
   const pad = (n) => String(n).padStart(2, "0");
 
   const renderCountdown = () => {
@@ -150,7 +179,8 @@
     const d = Math.floor(diff / 864e5);
     const h = Math.floor((diff % 864e5) / 36e5);
     const m = Math.floor((diff % 36e5) / 6e4);
-    [["d", d], ["h", h], ["m", m]].forEach(([k, v]) => {
+    const sec = Math.floor((diff % 6e4) / 1e3);
+    [["d", d], ["h", h], ["m", m], ["s", sec]].forEach(([k, v]) => {
       const txt = pad(v);
       if (cells[k].textContent !== txt) {
         cells[k].textContent = txt;
@@ -161,18 +191,18 @@
         }
       }
     });
-    cdGrid.setAttribute("aria-label", `O evento começa em ${d} dias, ${h} horas e ${m} minutos`);
+    cdGrid.setAttribute("aria-label", `O evento começa em ${d} dias, ${h} horas, ${m} minutos e ${sec} segundos`);
     return true;
   };
-  if (renderCountdown()) {
-    const timer = setInterval(() => { if (!renderCountdown()) clearInterval(timer); }, 1000);
-  }
+  // atualiza na virada de cada segundo
+  const loop = () => { if (renderCountdown()) setTimeout(loop, 1000 - (Date.now() % 1000) + 5); };
+  loop();
 
   /* ---------- Adicionar à agenda (.ics) ---------- */
   const icsDate = (ms) => new Date(ms).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
   const icsDay = (ms) => new Date(ms - 3 * 36e5).toISOString().slice(0, 10).replace(/-/g, ""); // dia no fuso de Brasília
   const icsEsc = (s = "") => String(s).replace(/\\/g, "\\\\").replace(/([,;])/g, "\\$1").replace(/\n/g, "\\n");
-  const temaTxt = `${cap(C.temaA || "Assumir")} ou ${cap(C.temaB || "Seguir")}`;
+  const temaTxt = `${cap(C.temaA || "Assumir")} ou ${cap(C.temaB || "Fugir")}`;
 
   const downloadIcs = () => {
     if (Number.isNaN(start)) return;
