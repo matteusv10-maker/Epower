@@ -64,7 +64,7 @@
       $$("[data-prazo]").forEach((el) => el.classList.add("is-closed"));
       if (titulo) titulo.textContent = "Pedidos encerrados";
       if (restante) restante.textContent = "Os pedidos da camisa foram aceitos até 25/10.";
-      $$("[data-camisa-link], [data-camisa-chip]").forEach((el) => (el.hidden = true));
+      $$("[data-camisa-link]").forEach((el) => (el.hidden = true));
     } else if (restante) {
       restante.textContent = dias === 0 ? "Hoje é o último dia para fazer o pedido."
         : dias === 1 ? "Amanhã é o último dia para fazer o pedido."

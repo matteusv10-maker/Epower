@@ -46,7 +46,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@1,600&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@1,600&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="preload" as="image" type="image/webp" imagesrcset="assets/img/banner-mobile-720.webp 720w, assets/img/banner-mobile-1080.webp 1080w" imagesizes="100vw" media="(max-width: 899px)">
   <link rel="preload" as="image" type="image/webp" imagesrcset="assets/img/banner-desktop-1280.webp 1280w, assets/img/banner-desktop-1920.webp 1920w" imagesizes="100vw" media="(min-width: 900px)">
   <link rel="stylesheet" href="assets/css/style.css">
@@ -145,7 +145,7 @@
     <section class="hero" id="topo" aria-labelledby="hero-title">
       <picture class="hero__banner">
         <source media="(min-width: 900px)" type="image/webp" srcset="assets/img/banner-desktop-1280.webp 1280w, assets/img/banner-desktop-1920.webp 1920w" sizes="100vw">
-        <img src="assets/img/banner-mobile-1080.webp" srcset="assets/img/banner-mobile-720.webp 720w, assets/img/banner-mobile-1080.webp 1080w" sizes="100vw" width="1080" height="1920" fetchpriority="high" alt="Arte da Conferência EPOWER com o Bispo Samuel Ferreira">
+        <img src="assets/img/banner-mobile-1080.webp" srcset="assets/img/banner-mobile-720.webp 720w, assets/img/banner-mobile-1080.webp 1080w" sizes="100vw" width="1080" height="1920" fetchpriority="high" alt="Arte da Conferência EPOWER com o Bispo Samuel Ferreira e o tema Assumir ou Fugir">
       </picture>
       <div class="hero__bubbles" aria-hidden="true">
         <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
@@ -153,31 +153,17 @@
 
       <div class="hero__body">
         <div class="container hero__content">
-          <h1 id="hero-title" class="sr-only">Conferência EPOWER 2026</h1>
-
-          <p class="theme-title">
-            <span class="theme-title__a" data-cfg="temaA">ASSUMIR</span>
-            <span class="theme-title__ou">ou</span>
-            <span class="theme-title__b" data-cfg="temaB">FUGIR</span>
-          </p>
-
-          <blockquote class="hero__verse">
-            <p>“…Que ocupação é a tua? Donde vens?<br class="br-lg"> Qual é a tua terra? E de que povo és tu?” <cite>Jonas 1:8</cite></p>
-          </blockquote>
+          <h1 id="hero-title" class="hero__title">Você é o nosso<br> convidado para<br> o EPOWER 2026!</h1>
+          <p class="hero__lead">É o congresso dos jovens do Ello Eterno, o ministério de jovens da AD Brás: uma juventude unida por Cristo.</p>
 
           <div class="hero__actions">
-            <!-- 1º CTA guia a jornada (próxima seção); o atalho direto para o formulário fica no cabeçalho (desktop) e na barra fixa (celular) -->
-            <a href="#sobre" class="btn btn--flame btn--lg">
-              Quero participar
-              <svg aria-hidden="true"><use href="#i-arrow-down"/></svg>
+            <a href="#confirmar" class="btn btn--flame btn--lg" data-cta>
+              Confirmar presença
+              <svg aria-hidden="true"><use href="#i-arrow"/></svg>
             </a>
           </div>
 
-          <a href="#camisa" class="hero__chip" data-camisa-chip>
-            <svg aria-hidden="true"><use href="#i-shirt"/></svg> Camisa oficial: pedidos até 25/10
-          </a>
-
-          <p class="hero__org"><span>Realização</span><img src="assets/img/ello-adbras.svg" alt="Ello Eterno · AD Brás" width="1204" height="373"></p>
+          <img class="hero__org" src="assets/img/ello-adbras.svg" alt="Realização: Ello Eterno · AD Brás" width="1204" height="373">
         </div>
       </div>
 
@@ -216,13 +202,13 @@
       <div class="container">
         <header class="section-head section-head--center reveal">
           <p class="eyebrow"><span class="eyebrow__icon"><svg aria-hidden="true"><use href="#i-bolt"/></svg></span>Sobre</p>
-          <h2 id="sobre-title" class="h-display">O que é o EPOWER</h2>
+          <h2 id="sobre-title" class="h-display">O que é<br class="br-m"> o EPOWER</h2>
         </header>
 
         <div class="about reveal">
-          <p class="about__lead">O EPOWER é uma conferência para viver o <strong>poder que vem de Deus</strong>: um encontro de adoração, palavra e comunhão para uma geração que não quer só assistir.</p>
-          <p>É o congresso dos jovens do <strong>Ello Eterno</strong>, o ministério de jovens da AD Brás: uma juventude unida por Cristo, o elo que nada rompe.</p>
-          <p>Nesse dia, o Ello abre as portas para jovens de várias igrejas e regionais, no mesmo lugar e com o mesmo propósito.</p>
+          <p class="about__lead">O EPOWER é um encontro para alinhar a nossa <strong>identidade e propósito com o Céu</strong>: uma noite de adoração, palavra e comunhão para uma geração que não quer só assistir.</p>
+          <p>Cremos que será um tempo de despertamento, transformação e manifestação do poder de Deus em nossas vidas.</p>
+          <p>Quem prepara tudo é o <strong>Ello Eterno</strong>, que vem se preparando em consagração e em um relógio de oração de cinco semanas por esse encontro. Nesse dia, o Ello abre as portas para jovens de várias igrejas e regionais.</p>
         </div>
 
         <!-- Tema -->
