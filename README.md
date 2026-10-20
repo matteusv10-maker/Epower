@@ -31,6 +31,8 @@ Tudo fica no bloco `window.EPOWER`, no topo do `site/index.html`:
 | `agendaLink` | Link do evento no Google Agenda usado nos botões "Adicionar à agenda" (vazio = baixa .ics) |
 | `formEndpoint` | Webhook do Make que recebe as confirmações (passo 3) |
 | `instagram` | Link do perfil do Ello Eterno |
+| `camisaLink` | Link da página de pedidos da camisa (botão "Quero minha camisa"). Vazio = o botão não leva a lugar nenhum |
+| `camisaPrazo` | Último dia de pedidos (`2026-10-25`). Mostra "Faltam X dias" e, depois da data, troca para "Pedidos encerrados" e esconde o botão |
 
 ## 2. Imagens (banners, presenças e camisa)
 
@@ -40,8 +42,8 @@ Para trocar qualquer imagem, substitua o arquivo em `site/assets/img/` **mantend
 |---|---|---|
 | `banner-mobile-1080.webp` e `banner-mobile-720.webp` | Topo da página no celular (arte vertical) | 1080 × 1920 e 720 × 1280 |
 | `banner-desktop-1920.webp` e `banner-desktop-1280.webp` | Topo da página no computador (arte horizontal) | 1920 × 1080 e 1280 × 720 |
-| `presencas/*.webp` | "Quem vai estar presente" | 3:4 (ex.: 600 × 800), rosto no terço de cima |
-| `camisa-epower-900.webp` e `camisa-epower-1348.webp` | Sorteio de camisas (fundo transparente) | 900 e 1348 de largura |
+| `liderancas/*.webp` | "Nossas lideranças" (círculos) | quadrada, 360 × 360, rosto no centro |
+| `camisa-1-800.webp` … `camisa-4-1080.webp` | Carrossel da camisa oficial (troca a cada 1,5 s) | 4:5, 1080 × 1350 (versões 800 e 1080) |
 | `og-epower.jpg` | Prévia do link no WhatsApp | 1200 × 630 |
 
 No topo do celular, o texto começa logo abaixo do logo da arte vertical (a 57% da altura). Se a arte nova mudar essa posição, ajuste `.hero__body { padding-top: 107% }` no `style.css`.
@@ -115,7 +117,7 @@ npx http-server site -p 5173 -c-1
 - [x] `formEndpoint`: webhook do Make
 - [ ] Teste real: uma confirmação pelo site chegando no Make
 - [x] Instagram: @elloeterno
-- [x] Banners, fotos (preletor e direção) e camisa
+- [x] Banners, fotos das lideranças e carrossel da camisa
+- [ ] `camisaLink`: link da página de pedidos da camisa
 - [x] `og:url` e `og:image`: https://matteusv10-maker.github.io/Epower/
-- [ ] Resposta do FAQ sobre o sorteio revisada
 - [ ] Rodar `node tools/gerar-html-unico.mjs` de novo se for usar o arquivo único

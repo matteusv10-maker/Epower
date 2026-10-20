@@ -46,6 +46,96 @@
     map.replaceChildren(iframe);
   }
 
+  /* ---------- Camisa oficial: link e prazo dos pedidos ---------- */
+  $$("[data-camisa-link]").forEach((a) => {
+    if (!C.camisaLink) return; // sem link ainda: o botão fica na própria seção
+    a.href = C.camisaLink;
+    if (/^https?:/i.test(C.camisaLink) && new URL(C.camisaLink).origin !== location.origin) {
+      a.target = "_blank";
+      a.rel = "noopener";
+    }
+  });
+  const hojeBR = () => new Date(Date.now() - 3 * 36e5).toISOString().slice(0, 10); // data de hoje em Brasília
+  if (/^\d{4}-\d{2}-\d{2}$/.test(C.camisaPrazo || "")) {
+    const dias = Math.round((Date.parse(C.camisaPrazo) - Date.parse(hojeBR())) / 864e5);
+    const titulo = $("[data-prazo-titulo]");
+    const restante = $("[data-prazo-restante]");
+    if (dias < 0) {
+      $$("[data-prazo]").forEach((el) => el.classList.add("is-closed"));
+      if (titulo) titulo.textContent = "Pedidos encerrados";
+      if (restante) restante.textContent = "Os pedidos da camisa foram aceitos até 25/10.";
+      $$("[data-camisa-link], [data-camisa-chip]").forEach((el) => (el.hidden = true));
+    } else if (restante) {
+      restante.textContent = dias === 0 ? "Hoje é o último dia para fazer o pedido."
+        : dias === 1 ? "Amanhã é o último dia para fazer o pedido."
+        : `Faltam ${dias} dias. Depois disso, não aceitamos mais pedidos.`;
+    }
+  }
+
+  /* ---------- Carrossel da camisa ----------
+     Cada foto fica ~1,5 s e a próxima entra pela direita. Uma cópia da 1ª foto no fim
+     faz o loop continuar sempre no mesmo sentido. */
+  const carousel = $("[data-carousel]");
+  if (carousel) {
+    const track = $("[data-track]", carousel);
+    const slides = $$(".carousel__slide", track);
+    const total = slides.length;
+    const dotsWrap = $("[data-dots]", carousel);
+    const pauseBtn = $("[data-pause]", carousel);
+    const PARADO = 1500, TRANSICAO = 700;
+    let atual = 0, timer = null, visivel = false, hover = false, pausado = reduceMotion;
+
+    const clone = slides[0].cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    clone.removeAttribute("aria-label");
+    $("img", clone).alt = "";
+    $("img", clone).loading = "lazy";
+    track.append(clone);
+
+    const dots = slides.map((_, k) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "carousel__dot";
+      b.setAttribute("aria-label", `Mostrar foto ${k + 1} de ${total}`);
+      b.addEventListener("click", () => { ir(k); reiniciar(); });
+      dotsWrap.append(b);
+      return b;
+    });
+    const marcar = () => dots.forEach((d, k) => d.setAttribute("aria-current", String(k === atual % total)));
+    const ir = (k, animar = true) => {
+      atual = k;
+      track.style.transition = animar ? "" : "none";
+      track.style.transform = `translateX(${-100 * atual}%)`;
+      marcar();
+    };
+    track.addEventListener("transitionend", () => {
+      if (atual !== total) return;
+      ir(0, false);           // chegou na cópia da 1ª: volta sem animação
+      void track.offsetWidth;
+      track.style.transition = "";
+    });
+    const parar = () => { clearInterval(timer); timer = null; };
+    const iniciar = () => {
+      if (timer || pausado || hover || !visivel || document.hidden) return;
+      timer = setInterval(() => ir(atual + 1), PARADO + TRANSICAO);
+    };
+    const reiniciar = () => { parar(); iniciar(); };
+    const atualizarBotao = () => {
+      pauseBtn.setAttribute("aria-label", pausado ? "Retomar fotos" : "Pausar fotos");
+      $("[data-icon-pause]", pauseBtn).hidden = pausado;
+      $("[data-icon-play]", pauseBtn).hidden = !pausado;
+    };
+    pauseBtn.addEventListener("click", () => { pausado = !pausado; atualizarBotao(); reiniciar(); });
+    carousel.addEventListener("mouseenter", () => { hover = true; parar(); });
+    carousel.addEventListener("mouseleave", () => { hover = false; iniciar(); });
+    carousel.addEventListener("focusin", () => { hover = true; parar(); });
+    carousel.addEventListener("focusout", () => { hover = false; iniciar(); });
+    document.addEventListener("visibilitychange", reiniciar);
+    new IntersectionObserver(([e]) => { visivel = e.isIntersecting; reiniciar(); }, { threshold: 0.3 }).observe(carousel);
+    ir(0, false);
+    atualizarBotao();
+  }
+
   /* ---------- Sem palavras viúvas ----------
      Junta as duas últimas palavras de cada parágrafo com espaço inquebrável,
      para nenhuma linha terminar com uma palavra sozinha. */
@@ -68,7 +158,7 @@
     }
   };
   $$("p, .questions li, .checks li, summary, figcaption, h2, .form-success h3").forEach((el) => {
-    if (el.closest("[data-countdown], .theme-title, .sticky-cta, .facts, .site-nav")) return;
+    if (el.closest("[data-countdown], .theme-title, .sticky-cta, .facts, .site-nav, .leader__name")) return;
     const words = el.textContent.trim().split(/\s+/);
     // títulos grandes: só junta quando sobra espaço (3+ palavras e final curto), para não estourar a largura
     if (/^H\d$/.test(el.tagName) && (words.length < 3 || words.slice(-2).join(" ").length > 14)) return;

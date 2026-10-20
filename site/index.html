@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Conferência EPOWER 2026 · Assumir ou Fugir · Ello Eterno | AD Brás</title>
-  <meta name="description" content="Conferência de jovens EPOWER, do Ello Eterno (AD Brás). Sábado, 7 de novembro, a partir das 17h, na Av. Celso Garcia, 560, Brás, São Paulo. Tema: Assumir ou Fugir, Jonas 1:8. 100% gratuita: confirme sua presença e concorra às camisas oficiais.">
+  <meta name="description" content="Conferência de jovens EPOWER, do Ello Eterno (AD Brás). Sábado, 7 de novembro, a partir das 17h, na Av. Celso Garcia, 560, Brás, São Paulo. Tema: Assumir ou Fugir, Jonas 1:8. Entrada gratuita: confirme sua presença.">
   <meta name="theme-color" content="#071C38">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23071C38'/%3E%3Cpath d='M38 8 22 34h11l-5 22 17-28H34z' fill='%23EB7221'/%3E%3C/svg%3E">
   <!-- Compartilhamento (WhatsApp / Instagram / Facebook).
@@ -13,7 +13,7 @@
   <meta property="og:url" content="https://matteusv10-maker.github.io/Epower/">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:title" content="Conferência EPOWER 2026 · Assumir ou Fugir">
-  <meta property="og:description" content="Sábado, 7 de novembro, a partir das 17h · AD Brás (Av. Celso Garcia, 560). 100% gratuita: confirme sua presença e concorra às camisas oficiais.">
+  <meta property="og:description" content="Sábado, 7 de novembro, a partir das 17h · AD Brás (Av. Celso Garcia, 560). Entrada gratuita: confirme sua presença.">
   <!-- Dados estruturados para o Google (evento) -->
   <script type="application/ld+json">
   {
@@ -88,6 +88,10 @@
       formEndpoint: "https://hook.us2.make.com/ma2okpak0ts18lqcshby91g34jfevmlw",
 
       instagram: "https://www.instagram.com/elloeterno/",
+
+      // Camisa oficial: link da página de pedidos (botão "Quero minha camisa") e último dia de pedidos
+      camisaLink:  "",           // A CONFIRMAR: cole aqui o link da página de pedidos
+      camisaPrazo: "2026-10-25", // depois desse dia, o botão some e a página mostra "Pedidos encerrados"
     };
   </script>
 </head>
@@ -110,6 +114,8 @@
       <symbol id="i-shirt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M8.5 3.5 3 6.5l2 4.2 2.2-1V20.5h9.6V9.7l2.2 1 2-4.2-5.5-3c-.4 1.6-1.8 2.7-3.5 2.7s-3.1-1.1-3.5-2.7Z"/></symbol>
       <symbol id="i-whats" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1c0 1.2.9 2.4 1 2.6.1.2 1.8 2.7 4.3 3.8 1.6.7 2.2.7 3 .6.5-.1 1.4-.6 1.6-1.2.2-.6.2-1.1.1-1.2l-.5-.3Z"/></symbol>
       <symbol id="i-insta" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></g></symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24"><path fill="currentColor" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5.5v13l10.5-6.5z"/></symbol>
       <symbol id="i-cal-plus" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></g></symbol>
     </defs>
   </svg>
@@ -122,7 +128,8 @@
       </a>
       <nav class="site-nav" aria-label="Seções">
         <a href="#sobre">Sobre</a>
-        <a href="#presencas">Line-up</a>
+        <a href="#liderancas">Lideranças</a>
+        <a href="#camisa">Camisa</a>
         <a href="#local">Local</a>
         <a href="#duvidas">Dúvidas</a>
       </nav>
@@ -138,7 +145,7 @@
     <section class="hero" id="topo" aria-labelledby="hero-title">
       <picture class="hero__banner">
         <source media="(min-width: 900px)" type="image/webp" srcset="assets/img/banner-desktop-1280.webp 1280w, assets/img/banner-desktop-1920.webp 1920w" sizes="100vw">
-        <img src="assets/img/banner-mobile-1080.webp" srcset="assets/img/banner-mobile-720.webp 720w, assets/img/banner-mobile-1080.webp 1080w" sizes="100vw" width="1080" height="1920" fetchpriority="high" alt="Arte da Conferência EPOWER com Bispo Samuel Ferreira, Pastor Ricardo Souza, Pastor Cleiton Almeida e Pastora Vânia Barretos">
+        <img src="assets/img/banner-mobile-1080.webp" srcset="assets/img/banner-mobile-720.webp 720w, assets/img/banner-mobile-1080.webp 1080w" sizes="100vw" width="1080" height="1920" fetchpriority="high" alt="Arte da Conferência EPOWER com o Bispo Samuel Ferreira">
       </picture>
       <div class="hero__bubbles" aria-hidden="true">
         <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
@@ -165,6 +172,10 @@
               <svg aria-hidden="true"><use href="#i-arrow-down"/></svg>
             </a>
           </div>
+
+          <a href="#camisa" class="hero__chip" data-camisa-chip>
+            <svg aria-hidden="true"><use href="#i-shirt"/></svg> Camisa oficial: pedidos até 25/10
+          </a>
 
           <p class="hero__org"><span>Realização</span><img src="assets/img/ello-adbras.svg" alt="Ello Eterno · AD Brás" width="1204" height="373"></p>
         </div>
@@ -244,57 +255,95 @@
       </div>
     </section>
 
-    <!-- ============ 4 · QUEM VAI ESTAR PRESENTE ============ -->
-    <!-- Fotos em assets/img/presencas (3:4, ~600×800). Para trocar, substitua o arquivo mantendo o nome. -->
-    <section class="section presencas" id="presencas" aria-labelledby="presencas-title">
+    <!-- ============ 4 · NOSSAS LIDERANÇAS ============ -->
+    <!-- Fotos em assets/img/liderancas (quadradas, ~360×360). Para trocar, substitua o arquivo mantendo o nome. -->
+    <section class="section liderancas" id="liderancas" aria-labelledby="liderancas-title">
       <div class="container">
         <header class="section-head section-head--center reveal">
-          <p class="eyebrow"><span class="eyebrow__icon"><svg aria-hidden="true"><use href="#i-bolt"/></svg></span>Line-up</p>
-          <h2 id="presencas-title" class="h-display">Quem vai estar presente</h2>
+          <p class="eyebrow"><span class="eyebrow__icon"><svg aria-hidden="true"><use href="#i-bolt"/></svg></span>Quem conduz</p>
+          <h2 id="liderancas-title" class="h-display">Nossas lideranças</h2>
         </header>
 
-        <ul class="guests">
-          <li class="guest reveal">
-            <div class="guest__photo"><img src="assets/img/presencas/samuel-ferreira.webp" alt="Bispo Samuel Ferreira" width="300" height="400" loading="lazy"></div>
-            <p class="guest__role">Direção Geral</p>
-            <h3 class="guest__name"><span class="guest__title">Bispo</span> Samuel Ferreira</h3>
-          </li>
-          <li class="guest guest--featured reveal">
-            <div class="guest__photo"><img src="assets/img/presencas/ricardo-souza.webp" alt="Pastor Ricardo Souza" width="300" height="400" loading="lazy"></div>
-            <p class="guest__role">Preletor</p>
-            <h3 class="guest__name"><span class="guest__title">Pastor</span> Ricardo Souza</h3>
-          </li>
-          <li class="guest reveal">
-            <div class="guest__photo"><img src="assets/img/presencas/cleiton-almeida.webp" alt="Pastor Cleiton Almeida" width="300" height="400" loading="lazy"></div>
-            <p class="guest__role">Direção Ello Eterno</p>
-            <h3 class="guest__name"><span class="guest__title">Pastor</span> Cleiton Almeida</h3>
-          </li>
-          <li class="guest reveal">
-            <div class="guest__photo"><img src="assets/img/presencas/vania-barretos.webp" alt="Pastora Vânia Barretos" width="300" height="400" loading="lazy"></div>
-            <p class="guest__role">Direção Ello Eterno</p>
-            <h3 class="guest__name"><span class="guest__title">Pastora</span> Vânia Barretos</h3>
-          </li>
-        </ul>
+        <div class="leaders reveal">
+          <div class="leaders__group leaders__group--geral" role="group" aria-labelledby="lg-geral">
+            <h3 id="lg-geral" class="leaders__label">Direção geral</h3>
+            <ul class="leaders__list">
+              <li class="leader leader--main">
+                <img class="leader__photo" src="assets/img/liderancas/samuel-ferreira.webp" alt="" width="360" height="360" loading="lazy">
+                <p class="leader__name"><span class="leader__title">Bispo</span> Samuel Ferreira</p>
+              </li>
+            </ul>
+          </div>
+
+          <span class="leaders__divider" aria-hidden="true"></span>
+
+          <div class="leaders__group" role="group" aria-labelledby="lg-ello">
+            <h3 id="lg-ello" class="leaders__label">Coordenação Ello</h3>
+            <ul class="leaders__list leaders__list--team">
+              <li class="leader">
+                <img class="leader__photo" src="assets/img/liderancas/cleiton-almeida.webp" alt="" width="360" height="360" loading="lazy">
+                <p class="leader__name"><span class="leader__title">Pastor</span> Cleiton Almeida</p>
+              </li>
+              <li class="leader">
+                <img class="leader__photo" src="assets/img/liderancas/vania-barretos.webp" alt="" width="360" height="360" loading="lazy">
+                <p class="leader__name"><span class="leader__title">Evangelista</span> Vânia Barretos</p>
+              </li>
+              <li class="leader">
+                <img class="leader__photo" src="assets/img/liderancas/ellen-villas.webp" alt="" width="360" height="360" loading="lazy">
+                <p class="leader__name">Ellen Villas</p>
+              </li>
+              <li class="leader">
+                <img class="leader__photo" src="assets/img/liderancas/bruno-villas.webp" alt="" width="360" height="360" loading="lazy">
+                <p class="leader__name">Bruno Villas</p>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- ============ 5 · SORTEIO DE CAMISAS ============ -->
-    <section class="sorteio" aria-labelledby="sorteio-title">
-      <div class="sorteio__bg" aria-hidden="true"></div>
+    <!-- ============ 5 · CAMISA OFICIAL ============ -->
+    <!-- Fotos do carrossel: assets/img/camisa-1..4 (4:5, 1080×1350). Link e prazo dos pedidos ficam na configuração (camisaLink, camisaPrazo). -->
+    <section class="camisa" id="camisa" aria-labelledby="camisa-title">
+      <div class="camisa__bg" aria-hidden="true"></div>
       <div class="container">
-        <div class="sorteio__panel reveal">
-          <figure class="sorteio__media">
-            <img src="assets/img/camisa-epower-900.webp" srcset="assets/img/camisa-epower-900.webp 900w, assets/img/camisa-epower-1348.webp 1348w" sizes="(min-width: 900px) 620px, 100vw" width="1348" height="1182" loading="lazy" alt="Camisa oficial EPOWER 2026 azul-marinho. Frente: logo EPOWER Ello Eterno 26. Costas: Assumir ou Fugir com uma baleia no mar e Jonas 1:8.">
-            <figcaption>Camisa oficial · frente e costas</figcaption>
-          </figure>
-          <div class="sorteio__copy">
-            <p class="eyebrow eyebrow--dark"><span class="eyebrow__icon"><svg aria-hidden="true"><use href="#i-bolt"/></svg></span>Sorteio</p>
-            <h2 id="sorteio-title" class="h-display h-display--dark">Sorteio de camisas</h2>
-            <p class="h-script h-script--flame">do EPOWER e da UMADESP</p>
-            <p class="sorteio__text">Confirmou presença, está concorrendo. Quem preencher o formulário entra automaticamente no sorteio das camisas oficiais.</p>
-            <p class="sorteio__alert"><svg aria-hidden="true"><use href="#i-shirt"/></svg> Só concorre quem confirmar presença.</p>
-            <a href="#confirmar" class="btn btn--deep" data-cta>
-              Quero concorrer
+        <div class="camisa__panel reveal">
+          <div class="camisa__media">
+            <div class="carousel" data-carousel role="region" aria-roledescription="carrossel" aria-label="Fotos da camisa oficial EPOWER 2026">
+              <div class="carousel__track" data-track>
+                <figure class="carousel__slide" role="group" aria-roledescription="slide" aria-label="1 de 4">
+                  <img src="assets/img/camisa-1-800.webp" srcset="assets/img/camisa-1-800.webp 800w, assets/img/camisa-1-1080.webp 1080w" sizes="(min-width: 900px) 480px, 100vw" width="1080" height="1350" alt="Camisa oficial EPOWER 2026, foto 1 de 4">
+                </figure>
+                <figure class="carousel__slide" role="group" aria-roledescription="slide" aria-label="2 de 4">
+                  <img src="assets/img/camisa-2-800.webp" srcset="assets/img/camisa-2-800.webp 800w, assets/img/camisa-2-1080.webp 1080w" sizes="(min-width: 900px) 480px, 100vw" width="1080" height="1350" loading="lazy" alt="Camisa oficial EPOWER 2026, foto 2 de 4">
+                </figure>
+                <figure class="carousel__slide" role="group" aria-roledescription="slide" aria-label="3 de 4">
+                  <img src="assets/img/camisa-3-800.webp" srcset="assets/img/camisa-3-800.webp 800w, assets/img/camisa-3-1080.webp 1080w" sizes="(min-width: 900px) 480px, 100vw" width="1080" height="1350" loading="lazy" alt="Camisa oficial EPOWER 2026, foto 3 de 4">
+                </figure>
+                <figure class="carousel__slide" role="group" aria-roledescription="slide" aria-label="4 de 4">
+                  <img src="assets/img/camisa-4-800.webp" srcset="assets/img/camisa-4-800.webp 800w, assets/img/camisa-4-1080.webp 1080w" sizes="(min-width: 900px) 480px, 100vw" width="1080" height="1350" loading="lazy" alt="Camisa oficial EPOWER 2026, foto 4 de 4">
+                </figure>
+              </div>
+              <div class="carousel__ui">
+                <div class="carousel__dots" data-dots></div>
+                <button type="button" class="carousel__pause" data-pause aria-label="Pausar fotos">
+                  <svg aria-hidden="true" data-icon-pause><use href="#i-pause"/></svg>
+                  <svg aria-hidden="true" data-icon-play hidden><use href="#i-play"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="camisa__copy">
+            <p class="eyebrow eyebrow--dark"><span class="eyebrow__icon"><svg aria-hidden="true"><use href="#i-bolt"/></svg></span>Camisa oficial</p>
+            <h2 id="camisa-title" class="h-display h-display--dark">Garanta sua camisa</h2>
+            <p class="h-script h-script--flame">do EPOWER 2026</p>
+            <p class="camisa__text">Azul-marinho, com o EPOWER na frente e a arte “Assumir ou Fugir” nas costas. Vista o tema da conferência.</p>
+            <div class="deadline" data-prazo>
+              <span class="deadline__icon"><svg aria-hidden="true"><use href="#i-calendar"/></svg></span>
+              <p><strong data-prazo-titulo>Pedidos só até 25/10</strong><span data-prazo-restante>Depois dessa data, não aceitamos mais pedidos.</span></p>
+            </div>
+            <a href="#camisa" class="btn btn--deep" data-camisa-link>
+              Quero minha camisa
               <svg aria-hidden="true"><use href="#i-arrow"/></svg>
             </a>
           </div>
@@ -350,11 +399,11 @@
         <div class="confirmar__copy reveal">
           <p class="eyebrow"><span class="eyebrow__icon"><svg aria-hidden="true"><use href="#i-bolt"/></svg></span>Confirme sua presença</p>
           <h2 id="confirmar-title" class="h-display">Vou estar lá</h2>
-          <p class="confirmar__lead">Preencha o formulário para confirmar sua presença. Você já entra automaticamente no sorteio das camisas.</p>
+          <p class="confirmar__lead">Confirme sua presença para a gente preparar tudo para te receber.</p>
           <ul class="checks">
             <li><svg aria-hidden="true"><use href="#i-check"/></svg> 100% gratuito</li>
             <li><svg aria-hidden="true"><use href="#i-check"/></svg> Leva menos de 1 minuto</li>
-            <li><svg aria-hidden="true"><use href="#i-check"/></svg> Concorra às camisas do EPOWER e da UMADESP</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg> Confirmação na hora</li>
           </ul>
         </div>
 
@@ -397,7 +446,7 @@
           <div class="form-success" data-success hidden tabindex="-1">
             <span class="form-success__icon"><svg aria-hidden="true"><use href="#i-check"/></svg></span>
             <h3>Presença confirmada<span data-success-name></span>!</h3>
-            <p>Você já está participando do sorteio das camisas. Agora chama alguém para ir com você.</p>
+            <p>Te esperamos no sábado, 7 de novembro, a partir das 17h. Agora chama alguém para ir com você.</p>
             <a class="btn btn--whats btn--block" href="#" target="_blank" rel="noopener" data-share>
               <svg aria-hidden="true"><use href="#i-whats"/></svg> Convidar no WhatsApp
             </a>
@@ -425,7 +474,7 @@
         <div class="faq__list">
           <details class="faq__item reveal">
             <summary>Como garanto minha camisa do EPOWER?<span class="faq__icon"><svg aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
-            <div class="faq__answer"><p>Confirmando sua presença no formulário desta página. Quem confirma entra automaticamente no sorteio das camisas oficiais do EPOWER e da UMADESP. Os detalhes do sorteio serão divulgados no Instagram do Ello Eterno.</p></div>
+            <div class="faq__answer"><p>Pelo botão “Quero minha camisa”, na seção da camisa oficial. Os pedidos vão só até 25 de outubro; depois dessa data, não aceitamos mais pedidos.</p></div>
           </details>
           <details class="faq__item reveal">
             <summary>Tem estacionamento perto?<span class="faq__icon"><svg aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
