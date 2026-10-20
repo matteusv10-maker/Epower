@@ -10,7 +10,7 @@
   <!-- Compartilhamento (WhatsApp / Instagram / Facebook).
        Endereço publicado no GitHub Pages. Se mudar de domínio, troque og:url e og:image (o WhatsApp só lê URL absoluta). -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://matteusv10-maker.github.io/Epower/">
+  <meta property="og:url" content="https://elloeterno.com.br/">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:title" content="Conferência EPOWER 2026 · Assumir ou Fugir">
   <meta property="og:description" content="Sábado, 7 de novembro, a partir das 17h · AD Brás (Av. Celso Garcia, 560). Entrada gratuita: confirme sua presença.">
@@ -39,15 +39,14 @@
     "organizer": { "@type": "Organization", "name": "Ello Eterno · AD Brás" }
   }
   </script>
-  <meta property="og:image" content="https://matteusv10-maker.github.io/Epower/assets/img/og-epower.jpg">
+  <meta property="og:image" content="https://elloeterno.com.br/assets/img/og-epower.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@1,600&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" type="image/webp" imagesrcset="assets/img/banner-mobile-720.webp 720w, assets/img/banner-mobile-1080.webp 1080w" imagesizes="100vw" media="(max-width: 899px)">
+  <link rel="preload" href="assets/fonts/anton.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" type="image/webp" imagesrcset="assets/img/banner-mobile-540.webp 540w, assets/img/banner-mobile-720.webp 720w, assets/img/banner-mobile-860.webp 860w, assets/img/banner-mobile-1080.webp 1080w" imagesizes="100vw" media="(max-width: 899px)">
   <link rel="preload" as="image" type="image/webp" imagesrcset="assets/img/banner-desktop-1280.webp 1280w, assets/img/banner-desktop-1920.webp 1920w" imagesizes="100vw" media="(min-width: 900px)">
   <link rel="stylesheet" href="assets/css/style.css">
 
@@ -126,7 +125,7 @@
   <header class="site-header" data-header>
     <div class="container site-header__inner">
       <a href="#topo" class="site-header__brand" aria-label="EPOWER: voltar ao topo">
-        <img src="assets/img/logo-epower.webp" alt="Conferência EPOWER" width="120" height="49">
+        <img src="assets/img/logo-epower-400.webp" alt="Conferência EPOWER" width="120" height="49">
       </a>
       <nav class="site-nav" aria-label="Seções">
         <a href="#sobre">Sobre</a>
@@ -147,7 +146,7 @@
     <section class="hero" id="topo" aria-labelledby="hero-title">
       <picture class="hero__banner">
         <source media="(min-width: 900px)" type="image/webp" srcset="assets/img/banner-desktop-1280.webp 1280w, assets/img/banner-desktop-1920.webp 1920w" sizes="100vw">
-        <img src="assets/img/banner-mobile-1080.webp" srcset="assets/img/banner-mobile-720.webp 720w, assets/img/banner-mobile-1080.webp 1080w" sizes="100vw" width="1080" height="1920" fetchpriority="high" alt="Arte da Conferência EPOWER com o Bispo Samuel Ferreira e o tema Assumir ou Fugir">
+        <img src="assets/img/banner-mobile-1080.webp" srcset="assets/img/banner-mobile-540.webp 540w, assets/img/banner-mobile-720.webp 720w, assets/img/banner-mobile-860.webp 860w, assets/img/banner-mobile-1080.webp 1080w" sizes="100vw" width="1080" height="1920" fetchpriority="high" alt="Arte da Conferência EPOWER com o Bispo Samuel Ferreira e o tema Assumir ou Fugir">
       </picture>
       <div class="hero__bubbles" aria-hidden="true">
         <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
@@ -300,16 +299,16 @@
             <div class="carousel" data-carousel role="region" aria-roledescription="carrossel" aria-label="Fotos da camisa oficial EPOWER 2026">
               <div class="carousel__track" data-track>
                 <figure class="carousel__slide" role="group" aria-roledescription="slide" aria-label="1 de 4">
-                  <img src="assets/img/camisa-1-800.webp" srcset="assets/img/camisa-1-800.webp 800w, assets/img/camisa-1-1080.webp 1080w" sizes="(min-width: 900px) 480px, 100vw" width="1080" height="1350" alt="Camisa oficial EPOWER 2026, foto 1 de 4">
+                  <img src="assets/img/camisa-1-800.webp" srcset="assets/img/camisa-1-400.webp 400w, assets/img/camisa-1-640.webp 640w, assets/img/camisa-1-800.webp 800w, assets/img/camisa-1-1080.webp 1080w" sizes="(min-width: 900px) 480px, calc(100vw - 40px)" width="1080" height="1350" loading="lazy" alt="Camisa oficial EPOWER 2026, foto 1 de 4">
                 </figure>
                 <figure class="carousel__slide" role="group" aria-roledescription="slide" aria-label="2 de 4">
-                  <img src="assets/img/camisa-2-800.webp" srcset="assets/img/camisa-2-800.webp 800w, assets/img/camisa-2-1080.webp 1080w" sizes="(min-width: 900px) 480px, 100vw" width="1080" height="1350" loading="lazy" alt="Camisa oficial EPOWER 2026, foto 2 de 4">
+                  <img src="assets/img/camisa-2-800.webp" srcset="assets/img/camisa-2-400.webp 400w, assets/img/camisa-2-640.webp 640w, assets/img/camisa-2-800.webp 800w, assets/img/camisa-2-1080.webp 1080w" sizes="(min-width: 900px) 480px, calc(100vw - 40px)" width="1080" height="1350" loading="lazy" alt="Camisa oficial EPOWER 2026, foto 2 de 4">
                 </figure>
                 <figure class="carousel__slide" role="group" aria-roledescription="slide" aria-label="3 de 4">
-                  <img src="assets/img/camisa-3-800.webp" srcset="assets/img/camisa-3-800.webp 800w, assets/img/camisa-3-1080.webp 1080w" sizes="(min-width: 900px) 480px, 100vw" width="1080" height="1350" loading="lazy" alt="Camisa oficial EPOWER 2026, foto 3 de 4">
+                  <img src="assets/img/camisa-3-800.webp" srcset="assets/img/camisa-3-400.webp 400w, assets/img/camisa-3-640.webp 640w, assets/img/camisa-3-800.webp 800w, assets/img/camisa-3-1080.webp 1080w" sizes="(min-width: 900px) 480px, calc(100vw - 40px)" width="1080" height="1350" loading="lazy" alt="Camisa oficial EPOWER 2026, foto 3 de 4">
                 </figure>
                 <figure class="carousel__slide" role="group" aria-roledescription="slide" aria-label="4 de 4">
-                  <img src="assets/img/camisa-4-800.webp" srcset="assets/img/camisa-4-800.webp 800w, assets/img/camisa-4-1080.webp 1080w" sizes="(min-width: 900px) 480px, 100vw" width="1080" height="1350" loading="lazy" alt="Camisa oficial EPOWER 2026, foto 4 de 4">
+                  <img src="assets/img/camisa-4-800.webp" srcset="assets/img/camisa-4-400.webp 400w, assets/img/camisa-4-640.webp 640w, assets/img/camisa-4-800.webp 800w, assets/img/camisa-4-1080.webp 1080w" sizes="(min-width: 900px) 480px, calc(100vw - 40px)" width="1080" height="1350" loading="lazy" alt="Camisa oficial EPOWER 2026, foto 4 de 4">
                 </figure>
               </div>
               <div class="carousel__ui">
@@ -493,7 +492,7 @@
       <svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path class="waves__front" d="M0 76c120-24 240-24 360 0s240 24 360 0 240-24 360 0 240 24 360 0 240-24 360 0 240 24 360 0V120H0Z"/></svg>
     </div>
     <div class="container site-footer__inner">
-      <img class="site-footer__logo" src="assets/img/logo-epower.webp" alt="Conferência EPOWER" width="1200" height="492" loading="lazy">
+      <img class="site-footer__logo" src="assets/img/logo-epower-400.webp" srcset="assets/img/logo-epower-400.webp 400w, assets/img/logo-epower.webp 1100w" sizes="190px" alt="Conferência EPOWER" width="1200" height="492" loading="lazy">
       <blockquote class="site-footer__verse">
         <p>“Então lhe disseram: Declara-nos tu agora, por causa de quem nos sobreveio este mal. Que ocupação é a tua? Donde vens? Qual é a tua terra? E de que povo és tu?”</p>
         <cite>Jonas 1:8</cite>

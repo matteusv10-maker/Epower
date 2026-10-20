@@ -12,6 +12,23 @@
 }
 */
 
+/* Fontes hospedadas no próprio site (antes vinham do Google Fonts e travavam a renderização). Subconjunto latino, cobre acentos do português. */
+@font-face {
+  font-family: "Anton";
+  src: url("../fonts/anton.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Archivo";
+  src: url("../fonts/archivo-var.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Playfair Display";
+  src: url("../fonts/playfair-600-italic.woff2") format("woff2");
+  font-weight: 600; font-style: italic; font-display: swap;
+}
+
 :root {
   /* Paleta (Figma › Paleta de cores) */
   --abyss: #071C38;
