@@ -40,6 +40,10 @@
   /* ---------- Estado ---------- */
   const nome = $("#r-nome");
   const whats = $("#r-whats");
+  const igrejaWrap = $("[data-igreja]");
+  const igreja = $("#r-igreja");
+  const choice = $(".choice", form);
+  const temIgreja = () => (form.querySelector('input[name="temIgreja"]:checked') || {}).value || "";
   const sizesWrap = $("[data-sizes]");
   let step = 1;
   let qtd = 1;
@@ -90,6 +94,15 @@
     if (el.getAttribute("aria-invalid") === "true") setError(el, el === nome ? "re-nome" : "re-whats", false);
   }));
 
+  // "Nome da igreja" só aparece para quem respondeu Sim (igual ao formulário de presença)
+  $$('input[name="temIgreja"]', form).forEach((r) => r.addEventListener("change", () => {
+    const yes = temIgreja() === "Sim";
+    igrejaWrap.hidden = !yes;
+    if (!yes) { igreja.value = ""; setError(igreja, "re-igreja", false); }
+    setError(choice, "re-igreja-opt", false);
+  }));
+  igreja.addEventListener("input", () => { if (igreja.getAttribute("aria-invalid") === "true") setError(igreja, "re-igreja", false); });
+
   const qtdValue = $("[data-qty-value]");
   const atualizarQtd = (animar) => {
     qtdValue.textContent = qtd;
@@ -111,8 +124,14 @@
     const okWhats = d.length === 10 || d.length === 11;
     setError(nome, "re-nome", !okNome);
     setError(whats, "re-whats", !okWhats);
+    const okOpt = !!temIgreja();
+    setError(choice, "re-igreja-opt", !okOpt);
+    const okIgreja = temIgreja() !== "Sim" || igreja.value.trim().length >= 2;
+    setError(igreja, "re-igreja", !okIgreja);
     if (!okNome) { nome.focus(); return false; }
     if (!okWhats) { whats.focus(); return false; }
+    if (!okOpt) { form.querySelector('input[name="temIgreja"]').focus(); return false; }
+    if (!okIgreja) { igreja.focus(); return false; }
     return true;
   };
 
@@ -188,6 +207,7 @@
       <dl>
         <div class="summary__row"><dt>Nome</dt><dd>${esc(nome.value.trim())}</dd></div>
         <div class="summary__row"><dt>Contato</dt><dd>${fmtPhone(d)}</dd></div>
+        <div class="summary__row"><dt>Igreja</dt><dd>${temIgreja() === "Sim" ? esc(igreja.value.trim()) : "Não é de igreja"}</dd></div>
         <div class="summary__row"><dt>Camisas</dt><dd class="summary__shirts">${tamanhos.slice(0, qtd).map((t, i) => `<span>Camisa ${i + 1} · ${t}</span>`).join("")}</dd></div>
         <div class="summary__row"><dt>Quantidade</dt><dd>${plural(qtd)} (${resumo})</dd></div>
         <div class="summary__row"><dt>Valor unitário</dt><dd>${brl(R.preco)}</dd></div>
@@ -233,6 +253,8 @@
       nome: nome.value.trim(),
       whatsapp: d,
       whatsappInternacional: `+55${d}`,
+      temIgreja: temIgreja(),
+      igreja: temIgreja() === "Sim" ? igreja.value.trim() : "",
       quantidade: qtd,
       tamanhos: tamanhos.slice(0, qtd).join(", "),
       ...Object.fromEntries(R.tamanhos.map((t) => [`qtd${t}`, c[t]])),
@@ -283,6 +305,7 @@
 
   $("[data-again]").addEventListener("click", () => {
     form.reset();
+    igrejaWrap.hidden = true;
     qtd = 1; tamanhos = [];
     sizesWrap.replaceChildren();
     atualizarQtd(false);

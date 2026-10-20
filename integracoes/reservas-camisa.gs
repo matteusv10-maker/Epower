@@ -1,7 +1,7 @@
 /**
  * EPOWER 2026 · Reservas da camisa → planilha "Camisas EPower26"
  *
- * Recebe cada reserva enviada por site/camisa/ e grava uma linha na aba "Reservas",
+ * Recebe cada reserva enviada por site/camisa/ e grava uma linha na aba "Reservas" (inclui igreja),
  * com a caixa "Pagamento realizado?" na frente e uma coluna de Observação.
  * Linhas pagas ficam verdes. A aba "Resumo" soma camisas por tamanho e valores.
  *
@@ -19,6 +19,7 @@ const ABA_RESUMO = "Resumo";
 const TAMANHOS = ["PP", "P", "M", "G", "GG"];
 const CABECALHO = [
   "Pagamento realizado?", "Data do pedido", "Nome", "WhatsApp", "Chamar no WhatsApp",
+  "Você é de alguma igreja?", "Nome da igreja",
   "Quantidade", "Tamanhos (por camisa)", "PP", "P", "M", "G", "GG",
   "Valor unitário", "Valor total", "Observação", "Origem", "Página", "ID do pedido",
 ];
@@ -43,6 +44,8 @@ function doPost(e) {
       limpar_(p.nome, 120),
       formatarTel_(zap),
       "", // link do WhatsApp, preenchido abaixo
+      limpar_(p.temIgreja, 3),
+      limpar_(p.igreja, 160),
       qtd,
       limpar_(p.tamanhos, 200),
       ...TAMANHOS.map((t) => Number(p["qtd" + t]) || 0),
@@ -80,12 +83,19 @@ function doGet() {
 function configurar() {
   const sh = abaReservas_();
   const ss = sh.getParent();
+  // Planilha criada antes das colunas de igreja: insere as 2 colunas depois de "Chamar no WhatsApp",
+  // empurrando os pedidos que já existem para a direita (nada se perde nem desalinha).
+  const atual = sh.getRange(1, 1, 1, sh.getLastColumn()).getDisplayValues()[0];
+  if (atual.indexOf("Você é de alguma igreja?") === -1 && atual.indexOf("Chamar no WhatsApp") !== -1) {
+    sh.insertColumnsAfter(atual.indexOf("Chamar no WhatsApp") + 1, 2);
+  }
   sh.getRange(1, 1, 1, CABECALHO.length).setValues([CABECALHO])
     .setFontWeight("bold").setBackground("#071C38").setFontColor("#FFFFFF").setWrap(true).setVerticalAlignment("middle");
   sh.setFrozenRows(1);
   sh.setFrozenColumns(3);
   sh.setRowHeight(1, 42);
   const larguras = { "Pagamento realizado?": 110, "Data do pedido": 130, "Nome": 220, "WhatsApp": 135, "Chamar no WhatsApp": 130,
+    "Você é de alguma igreja?": 120, "Nome da igreja": 200,
     "Quantidade": 90, "Tamanhos (por camisa)": 170, "Valor unitário": 100, "Valor total": 100, "Observação": 260, "Origem": 110, "Página": 220, "ID do pedido": 150 };
   Object.entries(larguras).forEach(([h, w]) => sh.setColumnWidth(COL[h], w));
   TAMANHOS.forEach((t) => sh.setColumnWidth(COL[t], 48));

@@ -105,6 +105,19 @@
                 <p class="field__hint" id="r-whats-hint">WhatsApp com DDD: é por ele que enviamos os dados do pagamento.</p>
                 <p class="field__error" id="re-whats" hidden>Digite um número válido com DDD.</p>
               </div>
+              <fieldset class="field field--choice">
+                <legend>Você é de alguma igreja?</legend>
+                <div class="choice">
+                  <label class="choice__opt"><input type="radio" name="temIgreja" value="Sim"><span>Sim</span></label>
+                  <label class="choice__opt"><input type="radio" name="temIgreja" value="Não"><span>Não</span></label>
+                </div>
+                <p class="field__error" id="re-igreja-opt" hidden>Escolha uma opção.</p>
+              </fieldset>
+              <div class="field field--reveal" data-igreja hidden>
+                <label for="r-igreja">Nome da igreja</label>
+                <input id="r-igreja" name="igreja" type="text" autocomplete="organization" placeholder="Ex.: AD Brás · Setor 1">
+                <p class="field__error" id="re-igreja" hidden>Digite o nome da sua igreja.</p>
+              </div>
               <div class="field">
                 <span class="field__label" id="r-qtd-label">Quantas camisas você quer?</span>
                 <div class="qty" role="group" aria-labelledby="r-qtd-label">
