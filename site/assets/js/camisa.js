@@ -16,6 +16,7 @@
   const form = $("[data-reserva]");
   const stepsNav = $("[data-steps]");
   const done = $("[data-done]");
+  const head = $(".reserva__head");
   const closed = $("[data-closed]");
 
   /* ---------- Prazo ---------- */
@@ -273,6 +274,7 @@
   const mostrarFila = (demo) => {
     form.hidden = true;
     stepsNav.hidden = true;
+    head.hidden = true; // na tela final o título sai; fica só no formulário
     done.hidden = false;
     $("[data-demo]").hidden = !demo;
     done.focus({ preventScroll: true });
@@ -285,6 +287,7 @@
     sizesWrap.replaceChildren();
     atualizarQtd(false);
     done.hidden = true;
+    head.hidden = false;
     form.hidden = false;
     stepsNav.hidden = false;
     goTo(1);
