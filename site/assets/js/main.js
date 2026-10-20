@@ -413,7 +413,28 @@
     $("[data-share]").href = `https://wa.me/?text=${encodeURIComponent(text)}`;
     success.focus({ preventScroll: true });
     success.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+    abrirAgendaModal();
   };
+
+  // Pop-up "Marcar na agenda": abre logo depois da confirmação (se o evento ainda não passou)
+  const agendaModal = $("[data-agenda-modal]");
+  const abrirAgendaModal = () => {
+    const eventoPassou = $$("[data-ics]").every((b) => b.hidden);
+    if (!agendaModal || typeof agendaModal.showModal !== "function" || eventoPassou) return;
+    setTimeout(() => { if (!agendaModal.open) agendaModal.showModal(); }, reduceMotion ? 0 : 700);
+  };
+  if (agendaModal) {
+    const agendaTxt = $("[data-cfg-agenda]", agendaModal);
+    if (agendaTxt && C.dataTexto && C.horarioTexto) agendaTxt.textContent = `${C.dataTexto}, ${C.horarioTexto.charAt(0).toLowerCase()}${C.horarioTexto.slice(1)} · ${C.localNome || "AD Brás"}. Assim você não esquece.`;
+    $("[data-agenda-sim]", agendaModal).addEventListener("click", () => { addToCalendar(); agendaModal.close(); });
+    $("[data-agenda-nao]", agendaModal).addEventListener("click", () => agendaModal.close());
+    agendaModal.addEventListener("click", (e) => { // clique fora do cartão fecha
+      if (e.target !== agendaModal) return;
+      const r = agendaModal.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) agendaModal.close();
+    });
+    agendaModal.addEventListener("close", () => success.focus({ preventScroll: true }));
+  }
 
   $("[data-again]").addEventListener("click", () => {
     success.hidden = true;

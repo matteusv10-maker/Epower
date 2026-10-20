@@ -448,6 +448,19 @@
             </div>
             <p class="form-success__demo" data-demo-note hidden>Modo demonstração: configure <code>formEndpoint</code> para salvar as confirmações.</p>
           </div>
+
+          <!-- Pop-up pós-confirmação: convite para salvar na agenda -->
+          <dialog class="agenda-modal" data-agenda-modal aria-labelledby="agenda-modal-title">
+            <span class="agenda-modal__icon"><svg aria-hidden="true"><use href="#i-cal-plus"/></svg></span>
+            <h3 id="agenda-modal-title" class="agenda-modal__title">Já marca na sua agenda!</h3>
+            <p class="agenda-modal__text" data-cfg-agenda>Sábado, 7 de novembro, a partir das 17h · AD Brás. Assim você não esquece.</p>
+            <div class="agenda-modal__actions">
+              <button type="button" class="btn btn--flame btn--block" data-agenda-sim>
+                <svg aria-hidden="true"><use href="#i-calendar"/></svg> Marcar na agenda
+              </button>
+              <button type="button" class="link-btn link-btn--dark" data-agenda-nao>Não quero marcar</button>
+            </div>
+          </dialog>
         </div>
       </div>
     </section>

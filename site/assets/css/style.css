@@ -568,6 +568,25 @@ fieldset.field { border: 0; padding: 0; min-width: 0; }
 .form-success__links .link-btn { margin-top: 4px; }
 .form-success__demo { margin: 14px 0 0 !important; padding: 8px 12px; border-radius: 10px; background: #FFF1D6; color: #6B4A00 !important; font-size: .76rem; }
 
+/* Pop-up "Marcar na agenda" (abre depois de confirmar presença) */
+.agenda-modal {
+  width: min(92vw, 400px); padding: 32px 24px 22px; border: 0; border-radius: 22px;
+  background: var(--paper); color: var(--ink); text-align: center;
+  box-shadow: 0 30px 80px rgba(4, 21, 43, .45);
+}
+.agenda-modal::backdrop { background: rgba(4, 21, 43, .72); backdrop-filter: blur(3px); }
+.agenda-modal[open] { animation: agenda-in .35s var(--ease); }
+.agenda-modal[open]::backdrop { animation: agenda-fade .35s ease; }
+.agenda-modal__icon { display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto 14px; border-radius: 50%; background: var(--flame); color: var(--ink); }
+.agenda-modal__icon svg { width: 30px; height: 30px; }
+.agenda-modal__title { font: 400 clamp(1.8rem, 7vw, 2.2rem)/1 var(--font-display); text-transform: uppercase; }
+.agenda-modal__text { margin: 12px auto 22px; max-width: 30ch; color: var(--ink-2); }
+.agenda-modal__actions { display: grid; gap: 8px; justify-items: center; }
+.agenda-modal__actions .link-btn { padding: 8px 12px; }
+@keyframes agenda-in { from { opacity: 0; transform: translateY(16px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes agenda-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .agenda-modal[open], .agenda-modal[open]::backdrop { animation: none; } }
+
 /* ---------- 8 · FAQ ---------- */
 .faq__list { display: grid; gap: 10px; }
 .faq__item { border-radius: var(--radius); background: var(--glass); border: 1px solid var(--line); transition: background-color .3s, border-color .3s; }
