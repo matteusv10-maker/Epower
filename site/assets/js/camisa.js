@@ -271,7 +271,6 @@
   });
 
   const mostrarFila = (demo) => {
-    renderSummary($("[data-done-summary]"), false);
     form.hidden = true;
     stepsNav.hidden = true;
     done.hidden = false;
