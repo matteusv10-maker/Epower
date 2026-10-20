@@ -464,7 +464,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .deadline__icon { display: grid; place-items: center; width: 46px; height: 46px; flex: none; border-radius: 12px; background: var(--ink); color: var(--flame-hi); }
 .deadline__icon svg { width: 24px; height: 24px; }
 .deadline strong { display: block; font: 400 1.4rem/1.05 var(--font-display); text-transform: uppercase; letter-spacing: .01em; }
-.deadline span { display: block; margin-top: 4px; font-size: .86rem; font-weight: 700; line-height: 1.4; }
+.deadline p span { display: block; margin-top: 4px; font-size: .86rem; font-weight: 700; line-height: 1.4; }
 .deadline.is-closed { background: #E1E5EC; color: var(--ink-2); box-shadow: none; }
 
 /* ---------- 6 · Local ---------- */
