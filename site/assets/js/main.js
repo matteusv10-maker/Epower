@@ -445,18 +445,26 @@
 
     setLoading(true);
     try {
-      if (C.formEndpoint) {
-        // Webhook do Make: só mostra sucesso se ele responder 2xx (nenhuma falha silenciosa)
-        const ctrl = new AbortController();
-        const t = setTimeout(() => ctrl.abort(), 15000);
-        const res = await fetch(C.formEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-          signal: ctrl.signal,
-        });
-        clearTimeout(t);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      if (C.planilhaEndpoint || C.formEndpoint) {
+        // Envia para a planilha (Apps Script) e para o Make ao mesmo tempo.
+        // Só mostra sucesso se pelo menos um confirmar o recebimento (nenhuma falha silenciosa).
+        const enviar = async (url, headers) => {
+          const ctrl = new AbortController();
+          const t = setTimeout(() => ctrl.abort(), 20000);
+          try {
+            const res = await fetch(url, { method: "POST", headers, body: JSON.stringify(data), signal: ctrl.signal });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const json = await res.clone().json().catch(() => null);
+            if (json && json.ok === false) throw new Error(json.error || "erro");
+            return true;
+          } finally { clearTimeout(t); }
+        };
+        const envios = [];
+        // text/plain evita a pré-verificação de CORS, que o Apps Script não responde
+        if (C.planilhaEndpoint) envios.push(enviar(C.planilhaEndpoint, { "Content-Type": "text/plain;charset=utf-8" }));
+        if (C.formEndpoint) envios.push(enviar(C.formEndpoint, { "Content-Type": "application/json" }));
+        const resultados = await Promise.allSettled(envios);
+        if (!resultados.some((r) => r.status === "fulfilled")) throw new Error("nenhum destino respondeu");
         showSuccess(firstName, false);
       } else {
         await new Promise((r) => setTimeout(r, 700));

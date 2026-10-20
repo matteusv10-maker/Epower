@@ -9,6 +9,8 @@ site/                       O SITE: é isto que vai para a hospedagem
   assets/css/style.css      visual (paleta e fontes da ID Visual do Figma)
   assets/js/main.js         contagem, formulário, agenda (.ics), animações
   assets/img/               logos, texturas de mar, imagem de compartilhamento
+  camisa/index.html         página de reserva da camisa (+ assets/css/camisa.css e assets/js/camisa.js)
+integracoes/                scripts das planilhas (Apps Script): inscrições e reservas da camisa
 dist/epower-2026.html       a LP inteira num arquivo só (gerado pelo tools/gerar-html-unico.mjs)
 tools/gerar-html-unico.mjs  gera o dist/epower-2026.html
 docs/                       relatório de revisão UX/UI (Baziotti)
@@ -48,30 +50,29 @@ Para trocar qualquer imagem, substitua o arquivo em `site/assets/img/` **mantend
 
 No topo do celular, o texto começa logo abaixo do logo da arte vertical (a 57% da altura). Se a arte nova mudar essa posição, ajuste `.hero__body { padding-top: 107% }` no `style.css`.
 
-## 3. Formulário (Make)
+## 3. Formulários e planilhas
 
-As confirmações vão para o webhook do Make configurado em `formEndpoint`
-(`https://hook.us2.make.com/ma2okpak0ts18lqcshby91g34jfevmlw`), em JSON:
+### Confirmação de presença (página principal)
+Cada inscrição vai para **dois destinos ao mesmo tempo** (configurados no topo de `site/index.html`):
+- `planilhaEndpoint`: planilha **Inscrições EPower** (Apps Script `integracoes/confirmacoes-presenca.gs`, projeto "EPOWER Inscrições").
+  Colunas: caixa **Compareceu?** (check-in no dia, linha fica verde), Nome Completo, WhatsApp, Você é de alguma igreja?, Nome da igreja,
+  data, link **Abrir conversa** (WhatsApp), **Observação**, origem, página e ID. A aba **Resumo** mostra totais e inscrições por origem (`?ref=`).
+- `formEndpoint`: webhook do Make (JSON).
 
-```json
-{
-  "evento": "EPOWER 2026",
-  "nome": "Maria Souza",
-  "whatsapp": "11987654321",
-  "whatsappInternacional": "+5511987654321",
-  "temIgreja": "Sim",
-  "igreja": "AD Brás Setor 3",
-  "origem": "setor-3",
-  "pagina": "https://.../?ref=setor-3",
-  "enviadoEm": "2026-10-01T04:08:59.497Z"
-}
-```
+A página só mostra "Presença confirmada" se pelo menos um dos destinos confirmar o recebimento.
 
-A página só mostra "Presença confirmada" quando o Make responde com sucesso; se falhar, mostra o erro e mantém os dados preenchidos.
-Para o Make reconhecer os campos, envie uma confirmação de teste pelo site com o cenário em "Run once".
+### Reserva da camisa (`site/camisa/`)
+Página com formulário em etapas (dados e quantidade → tamanho de cada camisa → confirmação → "você está na fila").
+Configuração no topo de `site/camisa/index.html` (`RESERVA`): preço (R$ 60), prazo (25/10), limite por pedido e `endpoint`.
+As reservas vão para a planilha **Camisas EPower26** (Apps Script `integracoes/reservas-camisa.gs`, projeto "EPOWER Reservas Camisa"):
+caixa **Pagamento realizado?** na frente (linha fica verde), data, nome, WhatsApp, link **Abrir conversa**, quantidade, tamanhos,
+contagem por tamanho, valores, **Observação**, origem, página e ID. A aba **Resumo** soma camisas por tamanho, valor reservado, recebido e o que falta receber.
 
-Dica para as regionais: mande o link com `?ref=nome-da-regional` (ex.: `https://seusite/?ref=setor-3`).
-O campo **origem** mostra de onde veio cada confirmação.
+### Alterar um script
+Abra a planilha → Extensões → Apps Script, edite e salve. Depois: **Implantar → Gerenciar implantações → editar (lápis) → Versão: Nova versão → Implantar**.
+A URL continua a mesma. Rodar a função `configurar` refaz cabeçalho, formatação e resumo sem apagar dados.
+
+Dica para as regionais: mande o link com `?ref=nome-da-regional` (ex.: `https://matteusv10-maker.github.io/Epower/?ref=setor-3`).
 
 ## 4. HTML único (arquivo só)
 
@@ -115,9 +116,11 @@ npx http-server site -p 5173 -c-1
 - [x] Data (sábado, 7/11) e local (AD Brás · Av. Celso Garcia, 560) com mapa
 - [x] Horário: a partir das 17h (`hora: "17:00"`)
 - [x] `formEndpoint`: webhook do Make
-- [ ] Teste real: uma confirmação pelo site chegando no Make
+- [x] Teste real: inscrição e reserva chegando nas planilhas (linhas "TESTE - pode apagar")
+- [ ] Apagar as linhas de teste das duas planilhas
+- [ ] Teste no Make com o cenário em "Run once"
 - [x] Instagram: @elloeterno
 - [x] Banners, fotos das lideranças e carrossel da camisa
-- [ ] `camisaLink`: link da página de pedidos da camisa
+- [x] Página de reserva da camisa ligada à planilha Camisas EPower26
 - [x] `og:url` e `og:image`: https://matteusv10-maker.github.io/Epower/
 - [ ] Rodar `node tools/gerar-html-unico.mjs` de novo se for usar o arquivo único

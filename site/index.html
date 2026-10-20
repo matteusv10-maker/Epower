@@ -84,13 +84,15 @@
       // Evento no Google Agenda (botões "Adicionar à agenda"). Vazio = baixa um arquivo .ics
       agendaLink: "https://calendar.app.google/AnWHvFxy23g9gL5C8",
 
-      // Para onde vão as confirmações: webhook do Make (recebe JSON via POST)
+      // Para onde vão as confirmações de presença (o site manda para os dois):
+      // planilha "Inscrições EPower" (Apps Script, integracoes/confirmacoes-presenca.gs) e webhook do Make
+      planilhaEndpoint: "https://script.google.com/macros/s/AKfycbzHTd_QU023ko_U1v4GyI6ldPCSc4peDO4g5v0AMSkD0OnN_a8BEtPCZV_MNgMiTcSeaA/exec",
       formEndpoint: "https://hook.us2.make.com/ma2okpak0ts18lqcshby91g34jfevmlw",
 
       instagram: "https://www.instagram.com/elloeterno/",
 
       // Camisa oficial: link da página de pedidos (botão "Quero minha camisa") e último dia de pedidos
-      camisaLink:  "",           // A CONFIRMAR: cole aqui o link da página de pedidos
+      camisaLink:  "camisa/",    // página de reserva da camisa (site/camisa/)
       camisaPrazo: "2026-10-25", // depois desse dia, o botão some e a página mostra "Pedidos encerrados"
     };
   </script>
@@ -324,6 +326,7 @@
             <h2 id="camisa-title" class="h-display h-display--dark">Garanta sua camisa</h2>
             <p class="h-script h-script--flame">do EPOWER 2026</p>
             <p class="camisa__text">Azul-marinho, com o EPOWER na frente e a arte “Assumir ou Fugir” nas costas. Vista o tema da conferência.</p>
+            <p class="camisa__price">A camisa custa <strong>R$&nbsp;60</strong></p>
             <div class="deadline" data-prazo>
               <span class="deadline__icon"><svg aria-hidden="true"><use href="#i-calendar"/></svg></span>
               <p><strong data-prazo-titulo>Pedidos só até 25/10</strong><span data-prazo-restante>Depois dessa data, não aceitamos mais pedidos.</span></p>

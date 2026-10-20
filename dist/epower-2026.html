@@ -461,6 +461,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .camisa__media { position: relative; background: var(--abyss); }
 .camisa__copy { padding: 30px 22px 32px; }
 .camisa__text { margin-top: 14px; color: var(--ink-2); line-height: 1.7; }
+.camisa__price { margin-top: 14px; font-size: 1.05rem; font-weight: 600; color: var(--ink-2); }
+.camisa__price strong { font: 400 2.1rem/1 var(--font-display); color: var(--flame-ink); letter-spacing: .01em; }
 
 /* carrossel: cada foto entra pela direita; depois da última, volta para a primeira sem "rebobinar" */
 .carousel { position: relative; overflow: hidden; aspect-ratio: 4 / 5; }
@@ -810,13 +812,15 @@ fieldset.field { border: 0; padding: 0; min-width: 0; }
       // Evento no Google Agenda (botões "Adicionar à agenda"). Vazio = baixa um arquivo .ics
       agendaLink: "https://calendar.app.google/AnWHvFxy23g9gL5C8",
 
-      // Para onde vão as confirmações: webhook do Make (recebe JSON via POST)
+      // Para onde vão as confirmações de presença (o site manda para os dois):
+      // planilha "Inscrições EPower" (Apps Script, integracoes/confirmacoes-presenca.gs) e webhook do Make
+      planilhaEndpoint: "https://script.google.com/macros/s/AKfycbzHTd_QU023ko_U1v4GyI6ldPCSc4peDO4g5v0AMSkD0OnN_a8BEtPCZV_MNgMiTcSeaA/exec",
       formEndpoint: "https://hook.us2.make.com/ma2okpak0ts18lqcshby91g34jfevmlw",
 
       instagram: "https://www.instagram.com/elloeterno/",
 
       // Camisa oficial: link da página de pedidos (botão "Quero minha camisa") e último dia de pedidos
-      camisaLink:  "",           // A CONFIRMAR: cole aqui o link da página de pedidos
+      camisaLink:  "camisa/",    // página de reserva da camisa (site/camisa/)
       camisaPrazo: "2026-10-25", // depois desse dia, o botão some e a página mostra "Pedidos encerrados"
     };
   </script>
@@ -1050,6 +1054,7 @@ fieldset.field { border: 0; padding: 0; min-width: 0; }
             <h2 id="camisa-title" class="h-display h-display--dark">Garanta sua camisa</h2>
             <p class="h-script h-script--flame">do EPOWER 2026</p>
             <p class="camisa__text">Azul-marinho, com o EPOWER na frente e a arte “Assumir ou Fugir” nas costas. Vista o tema da conferência.</p>
+            <p class="camisa__price">A camisa custa <strong>R$&nbsp;60</strong></p>
             <div class="deadline" data-prazo>
               <span class="deadline__icon"><svg aria-hidden="true"><use href="#i-calendar"/></svg></span>
               <p><strong data-prazo-titulo>Pedidos só até 25/10</strong><span data-prazo-restante>Depois dessa data, não aceitamos mais pedidos.</span></p>
@@ -1684,18 +1689,26 @@ fieldset.field { border: 0; padding: 0; min-width: 0; }
 
     setLoading(true);
     try {
-      if (C.formEndpoint) {
-        // Webhook do Make: só mostra sucesso se ele responder 2xx (nenhuma falha silenciosa)
-        const ctrl = new AbortController();
-        const t = setTimeout(() => ctrl.abort(), 15000);
-        const res = await fetch(C.formEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-          signal: ctrl.signal,
-        });
-        clearTimeout(t);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      if (C.planilhaEndpoint || C.formEndpoint) {
+        // Envia para a planilha (Apps Script) e para o Make ao mesmo tempo.
+        // Só mostra sucesso se pelo menos um confirmar o recebimento (nenhuma falha silenciosa).
+        const enviar = async (url, headers) => {
+          const ctrl = new AbortController();
+          const t = setTimeout(() => ctrl.abort(), 20000);
+          try {
+            const res = await fetch(url, { method: "POST", headers, body: JSON.stringify(data), signal: ctrl.signal });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const json = await res.clone().json().catch(() => null);
+            if (json && json.ok === false) throw new Error(json.error || "erro");
+            return true;
+          } finally { clearTimeout(t); }
+        };
+        const envios = [];
+        // text/plain evita a pré-verificação de CORS, que o Apps Script não responde
+        if (C.planilhaEndpoint) envios.push(enviar(C.planilhaEndpoint, { "Content-Type": "text/plain;charset=utf-8" }));
+        if (C.formEndpoint) envios.push(enviar(C.formEndpoint, { "Content-Type": "application/json" }));
+        const resultados = await Promise.allSettled(envios);
+        if (!resultados.some((r) => r.status === "fulfilled")) throw new Error("nenhum destino respondeu");
         showSuccess(firstName, false);
       } else {
         await new Promise((r) => setTimeout(r, 700));
