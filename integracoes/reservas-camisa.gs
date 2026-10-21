@@ -129,6 +129,7 @@ function configurar() {
   // aba de resumo
   const rs = ss.getSheetByName(ABA_RESUMO) || ss.insertSheet(ABA_RESUMO);
   rs.clear();
+  rs.getRange(1, 2, rs.getMaxRows(), 1).setNumberFormat("0"); // zera formatos antigos (linhas mudam quando entra tamanho novo)
   const A = "'" + ABA + "'!";
   const col = (h) => columnLetter_(COL[h]);
   const linhas = [
