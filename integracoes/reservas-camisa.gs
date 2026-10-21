@@ -16,11 +16,11 @@
 
 const ABA = "Reservas";
 const ABA_RESUMO = "Resumo";
-const TAMANHOS = ["PP", "P", "M", "G", "GG"];
+const TAMANHOS = ["PP", "P", "M", "G", "GG", "XG"];
 const CABECALHO = [
   "Pagamento realizado?", "Data do pedido", "Nome", "WhatsApp", "Chamar no WhatsApp",
   "Você é de alguma igreja?", "Nome da igreja",
-  "Quantidade", "Tamanhos (por camisa)", "PP", "P", "M", "G", "GG",
+  "Quantidade", "Tamanhos (por camisa)", "PP", "P", "M", "G", "GG", "XG",
   "Valor unitário", "Valor total", "Observação", "Origem", "Página", "ID do pedido",
 ];
 const COL = Object.fromEntries(CABECALHO.map((h, i) => [h, i + 1]));
@@ -88,6 +88,13 @@ function configurar() {
   const atual = sh.getRange(1, 1, 1, sh.getLastColumn()).getDisplayValues()[0];
   if (atual.indexOf("Você é de alguma igreja?") === -1 && atual.indexOf("Chamar no WhatsApp") !== -1) {
     sh.insertColumnsAfter(atual.indexOf("Chamar no WhatsApp") + 1, 2);
+  }
+  // Planilha criada antes do tamanho XG: insere a coluna XG logo depois de GG (pedidos antigos ficam com XG vazio = 0).
+  const cab = sh.getRange(1, 1, 1, sh.getLastColumn()).getDisplayValues()[0];
+  if (cab.indexOf("XG") === -1 && cab.indexOf("GG") !== -1) {
+    sh.insertColumnsAfter(cab.indexOf("GG") + 1, 1);
+    const ult = sh.getLastRow();
+    if (ult > 1) sh.getRange(2, cab.indexOf("GG") + 2, ult - 1, 1).setValue(0);
   }
   sh.getRange(1, 1, 1, CABECALHO.length).setValues([CABECALHO])
     .setFontWeight("bold").setBackground("#071C38").setFontColor("#FFFFFF").setWrap(true).setVerticalAlignment("middle");

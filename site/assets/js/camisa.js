@@ -2,7 +2,7 @@
 (() => {
   "use strict";
 
-  const R = Object.assign({ preco: 60, prazo: "", maxCamisas: 10, tamanhos: ["PP", "P", "M", "G", "GG"], endpoint: "" }, window.RESERVA || {});
+  const R = Object.assign({ preco: 60, prazo: "", maxCamisas: 10, tamanhos: ["PP", "P", "M", "G", "GG", "XG"], endpoint: "" }, window.RESERVA || {});
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
