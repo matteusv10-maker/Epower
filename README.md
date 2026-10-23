@@ -31,7 +31,8 @@ Tudo fica no bloco `window.EPOWER`, no topo do `site/index.html`:
 | `mapsLink` | Link do Google Maps para o botão "Como chegar" (o botão só aparece quando preenchido) |
 | `mapsEmbed` | Google Maps → Compartilhar → Incorporar mapa → copie só o valor de `src="..."` |
 | `agendaLink` | Link do evento no Google Agenda usado nos botões "Adicionar à agenda" (vazio = baixa .ics) |
-| `formEndpoint` | Webhook do Make que recebe as confirmações (passo 3) |
+| `planilhaEndpoint` | Web app do Apps Script que grava as confirmações na planilha Inscrições EPower |
+| `formEndpoint` | Opcional: webhook extra que também recebe as confirmações (vazio = não usa; o Make foi desligado em 23/10/2026) |
 | `instagram` | Link do perfil do Ello Eterno |
 | `camisaLink` | Link da página de pedidos da camisa (botão "Quero minha camisa"). Vazio = o botão não leva a lugar nenhum |
 | `camisaPrazo` | Último dia de pedidos (`2026-10-25`). Mostra "Faltam X dias" e, depois da data, troca para "Pedidos encerrados" e esconde o botão |
@@ -53,13 +54,13 @@ No topo do celular, o texto começa logo abaixo do logo da arte vertical (a 57% 
 ## 3. Formulários e planilhas
 
 ### Confirmação de presença (página principal)
-Cada inscrição vai para **dois destinos ao mesmo tempo** (configurados no topo de `site/index.html`):
+Cada inscrição vai para a planilha (configurada no topo de `site/index.html`):
 - `planilhaEndpoint`: planilha **Inscrições EPower** (Apps Script `integracoes/confirmacoes-presenca.gs`, projeto "EPOWER Inscrições").
   Colunas: caixa **Compareceu?** (check-in no dia, linha fica verde), Nome Completo, WhatsApp, Você é de alguma igreja?, Nome da igreja,
   data, link **Abrir conversa** (WhatsApp), **Observação**, origem, página e ID. A aba **Resumo** mostra totais e inscrições por origem (`?ref=`).
-- `formEndpoint`: webhook do Make (JSON).
+- `formEndpoint` (opcional, hoje vazio): webhook extra em JSON. O envio para o Make foi removido em 23/10/2026.
 
-A página só mostra "Presença confirmada" se pelo menos um dos destinos confirmar o recebimento.
+A página só mostra "Presença confirmada" se a planilha (ou algum destino configurado) confirmar o recebimento.
 
 ### Reserva da camisa (`site/camisa/`)
 Página com formulário em etapas (dados e quantidade → tamanho de cada camisa → confirmação → "você está na fila").
@@ -115,10 +116,10 @@ npx http-server site -p 5173 -c-1
 - [x] Tema: **ASSUMIR ou FUGIR**
 - [x] Data (sábado, 7/11) e local (AD Brás · Av. Celso Garcia, 560) com mapa
 - [x] Horário: a partir das 17h (`hora: "17:00"`)
-- [x] `formEndpoint`: webhook do Make
+- [x] `planilhaEndpoint`: planilha Inscrições EPower (Make removido em 23/10/2026)
 - [x] Teste real: inscrição e reserva chegando nas planilhas (linhas "TESTE - pode apagar")
 - [ ] Apagar as linhas de teste das duas planilhas
-- [ ] Teste no Make com o cenário em "Run once"
+- [ ] Desativar o cenário/webhook antigo no Make (a URL era pública)
 - [x] Instagram: @elloeterno
 - [x] Banners, fotos das lideranças e carrossel da camisa
 - [x] Página de reserva da camisa ligada à planilha Camisas EPower26

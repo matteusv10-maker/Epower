@@ -83,10 +83,9 @@
       // Evento no Google Agenda (botões "Adicionar à agenda"). Vazio = baixa um arquivo .ics
       agendaLink: "https://calendar.app.google/AnWHvFxy23g9gL5C8",
 
-      // Para onde vão as confirmações de presença (o site manda para os dois):
-      // planilha "Inscrições EPower" (Apps Script, integracoes/confirmacoes-presenca.gs) e webhook do Make
+      // Para onde vão as confirmações de presença:
+      // planilha "Inscrições EPower" (Apps Script, integracoes/confirmacoes-presenca.gs)
       planilhaEndpoint: "https://script.google.com/macros/s/AKfycbzHTd_QU023ko_U1v4GyI6ldPCSc4peDO4g5v0AMSkD0OnN_a8BEtPCZV_MNgMiTcSeaA/exec",
-      formEndpoint: "https://hook.us2.make.com/ma2okpak0ts18lqcshby91g34jfevmlw",
 
       instagram: "https://www.instagram.com/elloeterno/",
 
@@ -446,7 +445,7 @@
                 <svg aria-hidden="true"><use href="#i-plus"/></svg> Confirmar outra pessoa
               </button>
             </div>
-            <p class="form-success__demo" data-demo-note hidden>Modo demonstração: configure <code>formEndpoint</code> para salvar as confirmações.</p>
+            <p class="form-success__demo" data-demo-note hidden>Modo demonstração: configure <code>planilhaEndpoint</code> para salvar as confirmações.</p>
           </div>
 
           <!-- Pop-up pós-confirmação: convite para salvar na agenda -->

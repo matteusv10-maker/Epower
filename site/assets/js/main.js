@@ -467,7 +467,7 @@
     setLoading(true);
     try {
       if (C.planilhaEndpoint || C.formEndpoint) {
-        // Envia para a planilha (Apps Script) e para o Make ao mesmo tempo.
+        // Envia para a planilha (Apps Script) e, se houver, para um webhook extra (formEndpoint).
         // Só mostra sucesso se pelo menos um confirmar o recebimento (nenhuma falha silenciosa).
         const enviar = async (url, headers) => {
           const ctrl = new AbortController();
@@ -489,7 +489,7 @@
         showSuccess(firstName, false);
       } else {
         await new Promise((r) => setTimeout(r, 700));
-        console.info("[EPOWER] Modo demonstração: configure window.EPOWER.formEndpoint. Dados:", data);
+        console.info("[EPOWER] Modo demonstração: configure window.EPOWER.planilhaEndpoint. Dados:", data);
         showSuccess(firstName, true);
       }
       form.reset();
